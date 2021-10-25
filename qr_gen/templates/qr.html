@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form method="POST">
+        {% csrf_token %}
+        {{form}}
+        <input type="submit" value="make qrcode">
+    </form>
+
+    <a href="{% url 'geoCode' %}"> Convert an address</a>
+    <a href="{% url 'contactcard' %}"> Convert a contact</a>
+    {% if user.is_authenticated %}
+    <a href="{% url 'pdf' %}"> upload a pdf</a>
+    <a href="{% url 'audio' %}"> upload an audio</a>
+    <a href="{% url 'image' %}"> upload an image</a>
+    {% else %}
+    <a href="{% url 'account_login' %}"> upload a pdf</a>
+    <a href="{% url 'account_login' %}"> upload an audio</a>
+    <a href="{% url 'account_login' %}"> upload an image</a>
+    {% endif %}
+</body>
+</html>

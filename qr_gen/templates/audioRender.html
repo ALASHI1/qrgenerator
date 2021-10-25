@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+	{% for i in Q %}
+	 <iframe src="{{i.get_upload}}" width="100%" height="500px">
+    </iframe>
+ <a href="{{ i.get_absolute_url}}">Button</a>
+ <!-- <img src="http://127.0.0.1:8000/media/img/imgs/3_7_XkYJzsP.jpg"> -->
+ {% endfor %}
+</body>
+</html>

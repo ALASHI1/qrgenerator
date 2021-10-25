@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+{% for i in Q %}
+	 <img src="{{i.get_upload}}" width="100%" height="500px"/>
+ {% endfor %}
+{% for i in R %}
+	 <iframe src="{{i.get_upload}}" width="100%" height="500px">
+    </iframe>
+ {% endfor %}
+ {% for i in S %}
+	 <iframe src="{{i.get_upload}}" width="100%" height="500px">
+    </iframe>
+ {% endfor %}
+
+
+
+
+</body>
+</html>

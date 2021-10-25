@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+<img src="{{Q.Upload}}">
+<img src="{{ qr|safe}}"/>
+<button>
+       <a href="{{ qr|safe}}" download="{{name}}.png">Save your QR</a>
+   </button>
+</body>
+</html>

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+	{% for i in Q %}
+<a href="{{ i.get_absolute_url}}">
+	<img src="{{i.get_upload}}">
+</a>
+ {% endfor %}
+</body>
+</html>
