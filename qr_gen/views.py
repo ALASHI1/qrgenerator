@@ -46,7 +46,10 @@ def imageRender(request):
         if form.is_valid():
             name = form.cleaned_data["name"]
             image = form.cleaned_data["uploads"]
-            form.save()
+            forms = form.save(commit=False)
+            forms.author = request.user
+            print(forms)
+            forms.save()
             m = Qrfilecode.objects.filter(uploads=image)
         return render(
             request,
@@ -111,7 +114,10 @@ def pdfRender(request):
         if form.is_valid():
             name = form.cleaned_data["name"]
             image = form.cleaned_data["uploads"]
-            form.save()
+            forms = form.save(commit=False)
+            forms.author = request.user
+            print(forms)
+            forms.save()
             m = Qrfilecode.objects.filter(uploads=image)
         return render(
             request,
@@ -131,7 +137,10 @@ def audioRender(request):
         if form.is_valid():
             name = form.cleaned_data["name"]
             image = form.cleaned_data["uploads"]
-            form.save()
+            forms = form.save(commit=False)
+            forms.author = request.user
+            print(forms)
+            forms.save()
             m = Qrfilecode.objects.filter(uploads=image)
         return render(
             request,

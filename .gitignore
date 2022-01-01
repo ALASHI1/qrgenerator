@@ -1,0 +1,27 @@
+.env
+*.log
+*.pot
+*.pyc
+__pycache__/
+local_settings.py
+db.sqlite3
+db.sqlite3s
+db.sqlite3-journal
+media
+img
+Procfile
+settings.sql
+install.txt
+.vscode
+Pipfile*
+Pipfile
+Pipfile.lock
+# General MacOS files to ignore
+.DS_Store
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
