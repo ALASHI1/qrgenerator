@@ -1,7 +1,7 @@
 from rest_framework import generics
 from .serializers import *
 from ..models import *
-from ..views import *;
+from ..views import *
 from . form import *
 from rest_framework.authentication import BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
