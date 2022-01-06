@@ -8,12 +8,15 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
-
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, False)
+)
 
 class Geo_code(generics.GenericAPIView):
 	serializer_class = GeoCodeSerializer
 	def post(self, request):
-		geolocator = GoogleV3(api_key='AIzaSyCLS-HC02aGxuQ5ehulKf03bqEYt11iAU4')
+		geolocator = GoogleV3(api_key=env("GOOGLEAPI"))
 		address = request.data["address"]
 		location = geolocator.geocode(address)
 		qr = helpers.make_geo(location.latitude,location.longitude).png_data_uri(scale=10)
