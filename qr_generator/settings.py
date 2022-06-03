@@ -178,7 +178,7 @@ ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = True
 X_FRAME_OPTIONS = "SAMEORIGIN"
 
 STATIC_URL = "/static/"
-
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "")
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
