@@ -2,7 +2,7 @@ import io
 from io import BytesIO
 
 import environ
-import PIL
+
 import qrcode
 import qrcode.image.svg
 import segno
