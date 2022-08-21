@@ -9,10 +9,12 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
+# from email.policy import default
 import os
 from pathlib import Path
 
 import environ
+import dj_database_url
 
 env = environ.Env(
     # set casting, default value
@@ -31,7 +33,7 @@ SECRET_KEY = env("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -51,10 +53,14 @@ INSTALLED_APPS = [
     "allauth.socialaccount",
     "allauth.account",
     "allauth.socialaccount.providers.google",
-    "rest_auth.registration",
     "rest_framework",
     "rest_framework.authtoken",
     "rest_auth",
+    "storages",
+    "corsheaders",
+    "dj_rest_auth",
+    "rest_framework_simplejwt",
+    "dj_rest_auth.registration",
 ]
 SITE_ID = 1
 
@@ -89,13 +95,22 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.TokenAuthentication",
         "rest_framework.authentication.SessionAuthentication",
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
     ],
+    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
 }
+
+AUTHENTICATION_BACKENDS = [
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
+]
 
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -127,13 +142,24 @@ WSGI_APPLICATION = "qr_generator.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
 
+# DATABASES = {
+#     'default': {
+#         "ENGINE": 'django.db.backends.postgresql',
+#         "NAME": env("DB_NAME"),
+#         "USER": env("DB_USER"),
+#         "PASSWORD": env("DB_PASS"),
+#         "HOST": env("DB_HOST"),
+#         "PORT": env("DB_PORT"),
+#     }
+#     }
+DATABASES = {"default": dj_database_url.config(conn_max_age=600)}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -167,6 +193,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+CORS_ALLOW_ALL_ORIGINS = True
 
 LOGIN_REDIRECT_URL = "dashboard"
 ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = True
@@ -178,7 +205,36 @@ ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = True
 X_FRAME_OPTIONS = "SAMEORIGIN"
 
 STATIC_URL = "/static/"
-
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "")
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+REST_USE_JWT = True
+ACCOUNT_AUTHENTICATION_METHOD = "email"
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = None
+# DEFAULT_FILE_STORAGE = 'azure_storages.AzureStaticStorage'
+# STATICFILES_STORAGE = 'azure_storages.AzureMediaStorage'
+# STATIC_LOCATION = "static"
+# MEDIA_LOCATION = "media"
+# AZURE_ACCOUNT_NAME = "qrstoragebenshi"
+# AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
+# STATIC_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
+# MEDIA_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{MEDIA_LOCATION}/'
+
+
+# AZURE_ACCOUNT_NAME = 'qrstoragebenshi'
+# AZURE_ACCOUNT_KEY = 'u4r5AdcdBGI8DThRQZc7zfM8ndgPGQSqTwwM79G28rQI5hh3TDg4rO4vmrJPvAROlUCHuYn5Gy+0+AStORZMnA=='
+# AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
+# AZURE_LOCATION = ''
+# AZURE_CONTAINER = 'static'
+# MEDIA_LOCATION = "media"
+# STATIC_LOCATION = 'static'
+# AZURE_CONNECTION_STRING = "DefaultEndpointsProtocol=https;AccountName=qrstoragebenshi;AccountKey=u4r5AdcdBGI8DThRQZc7zfM8ndgPGQSqTwwM79G28rQI5hh3TDg4rO4vmrJPvAROlUCHuYn5Gy+0+AStORZMnA==;EndpointSuffix=core.windows.net"
+# STATIC_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
+# MEDIA_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{MEDIA_LOCATION}/'
+# STATICFILES_STORAGE = 'azure_storages.AzureStaticStorage'
+# DEFAULT_FILE_STORAGE = 'storages.backends.azure_storage.AzureStorage'
+# # AZURE_OVERWRITE_FILES = True
+# STATICFILES_STORAGE = 'storages.backends.azure_storage.AzureStorage'
