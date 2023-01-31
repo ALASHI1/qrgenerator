@@ -63,7 +63,6 @@ pause==0.3
 phonenumberslite==8.12.28
 Pillow==9.2.0
 platformdirs==2.4.0
-psycopg2==2.9.3
 psycopg2-binary==2.9.3
 pycparser==2.20
 PyJWT
