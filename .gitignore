@@ -11,7 +11,6 @@ db.sqlite3s
 db.sqlite3-journal
 media
 img
-Procfile
 settings.sql
 install.txt
 .vscode
